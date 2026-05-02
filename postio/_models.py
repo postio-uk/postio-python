@@ -82,11 +82,11 @@ class Deliverability(Enum):
     Aggregated verdict.
     """
 
-    deliverable = 'deliverable'
-    undeliverable = 'undeliverable'
-    risky = 'risky'
-    unknown = 'unknown'
-    invalid = 'invalid'
+    deliverable = "deliverable"
+    undeliverable = "undeliverable"
+    risky = "risky"
+    unknown = "unknown"
+    invalid = "invalid"
 
 
 class EmailResult(BaseModel):
@@ -99,7 +99,7 @@ class EmailResult(BaseModel):
     mxFound: bool
     smtpCheck: str | None
     isCatchAll: bool | None
-    deliverability: Deliverability = Field(..., description='Aggregated verdict.')
+    deliverability: Deliverability = Field(..., description="Aggregated verdict.")
 
 
 class PhoneResult(BaseModel):
