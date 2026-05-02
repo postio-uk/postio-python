@@ -1,12 +1,12 @@
-# postio-python — Claude Code working notes
+# postio-python — development notes
 
-Python SDK for `postio-api`. Mirrors `@postio/core` (the JS family's
-runtime client) with idiomatic Python ergonomics. Lives in its own repo
-because Python's toolchain (uv/pip/PEP 621/Pydantic) doesn't co-exist
-cleanly with the `postio-integrations` pnpm workspace.
+Python SDK for the [Postio API](https://postio.co.uk). Mirrors `@postio/core`
+(the JS family's runtime client) with idiomatic Python ergonomics.
+Lives in its own repo because Python's toolchain (uv/pip/PEP 621/Pydantic)
+doesn't co-exist cleanly with the JS-family pnpm workspace.
 
 Read [`README.md`](./README.md) for the customer-facing surface; this file
-is the operational guide.
+is the operational guide for contributors and code agents.
 
 ## Stack
 
@@ -48,7 +48,7 @@ postio-python/
 │   └── py.typed           PEP 561 marker
 ├── scripts/codegen.py     fetch spec → regenerate _models.py
 ├── tests/
-│   ├── conftest.py        loads umbrella .env, picks stage vs prod URL by key
+│   ├── conftest.py        loads .env, picks stage vs prod URL by key
 │   ├── test_offline.py    respx-mocked, no network or key — runs on every PR
 │   ├── test_address.py    live tests (skipped if no key)
 │   ├── test_email.py
@@ -80,11 +80,11 @@ uv run mypy postio/
 uv run python scripts/codegen.py
 ```
 
-Local dev picks up the umbrella `~/PROJECTS/ONNO/POSTIO/.env`
-automatically (via python-dotenv in `tests/conftest.py`). When
-`POSTIO_API_KEY_STAGE` is set, tests hit `stage-api.postio.co.uk`. When
-only `POSTIO_API_KEY_PROD` is set, they hit `api.postio.co.uk`. Live
-tests are skipped if neither is present.
+Local dev: place a `.env` at the repo root or one level up containing
+`POSTIO_API_KEY_STAGE=pk_...` (or `POSTIO_API_KEY_PROD`); `tests/conftest.py`
+auto-loads it via python-dotenv. When `POSTIO_API_KEY_STAGE` is set,
+tests hit `stage-api.postio.co.uk`; with only `POSTIO_API_KEY_PROD`,
+`api.postio.co.uk`. Live tests are skipped if neither is present.
 
 ## Branch + deploy model
 
@@ -147,7 +147,3 @@ GH secrets. Configured at:
 
 Bound to `(postio-uk/postio-python, release.yml, environment: pypi)`.
 
-## Tone for this repo
-
-Same as the umbrella: terse, casual, status-emoji summaries. Customers
-see error messages and docstrings — keep those plain English.
