@@ -16,4 +16,3 @@ venv/
 .python-version
 *.swp
 .DS_Store
-uv.lock
