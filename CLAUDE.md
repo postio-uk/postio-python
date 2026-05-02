@@ -119,20 +119,12 @@ version lives in the response envelope and is independent of SDK
 ergonomics changes. Stay on `0.x` until the API contract is committed
 stable; bump to `1.0` only with a real public-API freeze.
 
-## Spec drift
+## Spec ↔ runtime alignment
 
-`postio/_models.py` is generated, but a couple of fields need manual
-patches to reflect runtime reality:
-
-1. **`PhoneResult`** — every nullable field is patched to `= None`
-   default. The spec marks them `required` with type `[string, null]`,
-   but on invalid input the live API drops them entirely.
-2. **`PhoneResult.isReachable`** — patched to `bool | str | None`. Spec
-   says string-only; live API returns `bool`.
-
-`scripts/codegen.py` prints a reminder of these patches on every regen.
-When postio-api ships a spec/runtime alignment, drop the patches and
-let the generator drive `_models.py` verbatim.
+As of `@postio/openapi@1.0.3` (postio-api 1.0.3), the generated
+`_models.py` is shipped verbatim — no hand-patches required. If a
+future spec change re-introduces drift, prefer fixing it at the source
+(postio-api Zod schemas + handlers) over patching downstream.
 
 ## Secrets the CI needs
 

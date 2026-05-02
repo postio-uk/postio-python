@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Regenerate ``postio/_models.py`` from the live OpenAPI spec.
 
-Pulls https://postio.co.uk/openapi.json, runs datamodel-code-generator into
-``postio/_models.py``, then prints a reminder about manual patches that need
-to be reapplied.
+Pulls https://postio.co.uk/openapi.json and runs datamodel-code-generator
+into ``postio/_models.py``. As of @postio/openapi@1.0.3 no hand-patches
+are needed — the generated model is shipped verbatim.
 
 Usage:
 
@@ -24,24 +24,6 @@ from pathlib import Path
 SPEC_URL = "https://postio.co.uk/openapi.json"
 REPO = Path(__file__).resolve().parent.parent
 TARGET = REPO / "postio" / "_models.py"
-
-# Manual patches that must survive every regen. Keep this list in sync with
-# the comments in ``_models.py``. Each patch is described as:
-#   1. The runtime drift it papers over.
-#   2. The exact change to make.
-PATCHES_REMINDER = """
-After every regen, reapply these manual patches in postio/_models.py:
-
-  PhoneResult — spec marks every nullable field as `required` and the API
-                drops them on invalid input. Add `= None` defaults to every
-                str | None / bool | None field (number, isValid, isPossible
-                stay required). Also: change `isReachable: str | None` to
-                `isReachable: bool | str | None = None` because the live
-                API returns booleans there.
-
-If postio-api ever ships a spec/runtime alignment, drop the patches and let
-the regen drive the model verbatim.
-"""
 
 
 def fetch_spec(dest: Path, source: str) -> None:
@@ -90,7 +72,6 @@ def main() -> int:
         run_codegen(spec_path, TARGET)
 
     print(f"\nwrote {TARGET}")
-    print(PATCHES_REMINDER)
     return 0
 
 
