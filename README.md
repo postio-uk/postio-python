@@ -4,9 +4,11 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/postio.svg)](https://pypi.org/project/postio/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Python SDK for the [Postio API](https://postio.co.uk) — UK address, email, and
-phone validation. Backed by Royal Mail PAF and Ordnance Survey. Sync + async,
-type-safe via Pydantic v2.
+Python SDK for [Postio](https://postio.co.uk) — the UK validation API for
+addresses, emails and phone numbers. Sync + async, type-safe via Pydantic v2.
+Backed by Royal Mail PAF and Ordnance Survey.
+
+> **First time?** [Sign up free](https://postio.co.uk) — first 100 lookups on us, no card needed.
 
 ## Install
 
@@ -21,7 +23,7 @@ Requires Python 3.10+.
 ```python
 from postio import PostioClient
 
-client = PostioClient(api_key="pk_live_...")  # or set POSTIO_API_KEY
+client = PostioClient(api_key="pk_...")  # or set POSTIO_API_KEY
 
 result = client.address.search("downing street")
 for hit in result.results:
@@ -37,7 +39,7 @@ import asyncio
 from postio import AsyncPostioClient
 
 async def main():
-    async with AsyncPostioClient(api_key="pk_live_...") as client:
+    async with AsyncPostioClient(api_key="pk_...") as client:
         result = await client.address.postcode("SW1A 2AA")
         for addr in result.results:
             print(addr.address_line_1, addr.post_town)
@@ -92,7 +94,7 @@ issues to `admin@postio.co.uk`.
 from postio import PostioClient, RetryConfig
 
 client = PostioClient(
-    api_key="pk_live_...",
+    api_key="pk_...",
     base_url="https://api.postio.co.uk/v1",   # default
     timeout=10.0,                              # seconds
     retries=2,                                 # or RetryConfig(...) or None to disable

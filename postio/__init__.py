@@ -6,7 +6,7 @@ UK address, email, and phone validation. PAF + Ordnance Survey backed.
 
     from postio import PostioClient
 
-    client = PostioClient(api_key="pk_live_...")
+    client = PostioClient(api_key="pk_...")
     result = client.address.search("downing street")
     print(result.results[0].suggestion)
 """

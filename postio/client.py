@@ -129,7 +129,7 @@ class PostioClient(_PostioBase):
 
         from postio import PostioClient
 
-        client = PostioClient(api_key="pk_live_...")
+        client = PostioClient(api_key="pk_...")
         result = client.address.search("downing street")
         print(result.results[0].suggestion)
     """
@@ -290,7 +290,7 @@ class AsyncPostioClient(_PostioBase):
 
         from postio import AsyncPostioClient
 
-        async with AsyncPostioClient(api_key="pk_live_...") as client:
+        async with AsyncPostioClient(api_key="pk_...") as client:
             result = await client.address.search("downing street")
             print(result.results[0].suggestion)
     """
