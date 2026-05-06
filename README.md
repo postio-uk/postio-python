@@ -86,7 +86,7 @@ except PostioValidationError as err:
 
 Every error carries `status`, `code`, `details`, `request_id`, and the raw
 `envelope`. The `request_id` is the support handle to quote when reporting
-issues to `admin@postio.co.uk`.
+issues at <https://postio.co.uk/contact>.
 
 ## Configuration
 
